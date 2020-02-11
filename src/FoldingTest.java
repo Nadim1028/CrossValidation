@@ -16,11 +16,11 @@ public class FoldingTest {
     static File[] listOfMaskFiles = maskFolder.listFiles();
     static File[] listOfMainFiles = mainFolder.listFiles();
 
-    static    File[] folder1 = new File[111],largeFolder1 = new File[444];
-    File[] folder2 = new File[111],largeFolder2 = new File[444];
-    File[] folder3 = new File[111],largeFolder3 = new File[444];
-    File[] folder4 = new File[111],largeFolder4 = new File[444];
-    File[] folder5 = new File[111],largeFolder5 = new File[444];
+    File[] folder1 = new File[111];
+    File[] folder2 = new File[111];
+    File[] folder3 = new File[111];
+    File[] folder4 = new File[111];
+    File[] folder5 = new File[111];
 
     static int[] previousIndexLimit= new int[5],postIndexLimit= new int[5];
     static int p=555,m=1,limit=0,previousLimit=0,preIndex=0,postIndex=0;
@@ -45,7 +45,6 @@ public class FoldingTest {
                        previousIndexLimit[m-1]=previousLimit;
                        postIndexLimit[m-1]=limit;
                        folder1=folderMaker(folder1,previousLimit,limit);
-
                    }
                    else if(m==2){
                        previousIndexLimit[m-1]=previousLimit;
@@ -81,13 +80,10 @@ public class FoldingTest {
     private static File[] folderMaker(File[] folder, int previousLimit, int limit)
     {
         int i=0;
-
-
         for(int j=previousLimit;j<limit;j++)
         {
             folder[i++] = listOfMainFiles[j];
         }
-
         return folder;
     }
 
@@ -101,20 +97,16 @@ public class FoldingTest {
     }
 
     public void data() throws IOException {
-      /*  for(int k=0;k<previousIndexLimit.length;k++){
-            System.out.println(previousIndexLimit[k]);
-        }*/
         s.arrayInitializer();
         double t1,t2,t3,t4,t5;
-       // t1=s.trainer(folder1,previousIndexLimit,postIndexLimit,0);
+        t1=s.trainer(folder1,previousIndexLimit,postIndexLimit,0);
         t2=s.trainer(folder2,previousIndexLimit,postIndexLimit,1);
-      /*  t3=s.trainer(folder3,previousIndexLimit,postIndexLimit,2);
+        t3=s.trainer(folder3,previousIndexLimit,postIndexLimit,2);
         t4=s.trainer(folder4,previousIndexLimit,postIndexLimit,3);
-        t5=s.trainer(folder5,previousIndexLimit,postIndexLimit,4);*/
+        t5=s.trainer(folder5,previousIndexLimit,postIndexLimit,4);
 
-        // double t=(t1+t2+t3+t4+t5)/5;
-
-       // System.out.println(t);
+        double t=(t1+t2+t3+t4+t5)/5;
+        System.out.format("Final Accuracy = %.3f",t);
 
 
     }

@@ -12,17 +12,6 @@ public class AccuracyCalculation
     double[][][] probOfSkin = new double[256][256][256];
     int[] maskCount= new int[555], outputCount = new int[555];
 
-    BufferedWriter output1;
-    {
-        try {
-            output1 = new BufferedWriter(new FileWriter("data\\output1.txt"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
 
     public  void calculation( double[][][] skin, double[][][] nonSkin) throws IOException {
 
@@ -73,30 +62,17 @@ public class AccuracyCalculation
             }
         }
 
-        for (int i=0;i<256;i++)
-        {
-            for (int j=0;j<256;j++)
-            {
-                for (int k=0;k<256;k++)
-                {
-                    output1.write( probOfSkin[i][j][k]+"\n");
-
-                }
-            }
-        }
-
     }
 
     public void accuracyCalculator(File[] folderUnit, int[] previousIndexLimit, int[] postIndexLimit, int folderNumber) throws IOException
     {
         BufferedImage testImg=null,testImg2=null;
-        System.out.println(previousIndexLimit[folderNumber]);
 
         for (int fileNumber=0;fileNumber<111;fileNumber++)
         {
 
             File input = new File(String.valueOf(folderUnit[fileNumber]));
-            File maskInput = new File(String.valueOf(FoldingTest.listOfMaskFiles[fileNumber]));
+            File maskInput = new File(String.valueOf(FoldingTest.listOfMaskFiles[fileNumber+folderNumber*111]));
             try {
                 testImg= ImageIO.read(input);
                 testImg2=ImageIO.read(maskInput);
@@ -148,9 +124,9 @@ public class AccuracyCalculation
             sumOfOutput += outputCount[i];
         }
 
-        double accuracy=0;
+        double accuracy;
         accuracy=(double) (sumOfOutput*100)/(sumOFMask);
-        System.out.format("Accuracy = %.3f",accuracy);
+        System.out.format("Accuracy = %.3f\n",accuracy);
 
         return accuracy;
 

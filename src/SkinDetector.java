@@ -8,16 +8,10 @@ import java.io.IOException;
 
 public class SkinDetector extends AccuracyCalculation {
     BufferedImage mainImage=null,muskImage=null;
-
     static File[] listOfMaskFiles=null ;
     static File[] listOfMainFiles = null;
-
     int width,height;
-
     double[][][] skin = new double[256][256][256],nonSkin = new double[256][256][256];
-  // AccuracyCalculation a=new AccuracyCalculation();
-
-    BufferedWriter output2 = new BufferedWriter(new FileWriter("data\\output2.txt"));
 
     public SkinDetector(File[] ln,File[] lm) throws IOException {
         listOfMainFiles=ln;
@@ -44,14 +38,12 @@ public class SkinDetector extends AccuracyCalculation {
 
     public double trainer(File[] folderUnit, int[] previousIndexLimit, int[] postIndexLimit, int folderNumber) throws IOException {
 
-      //  System.out.println(previousIndexLimit[folderNumber]);
         for(int l=0; l<555;l++)
         {
             if(l<previousIndexLimit[folderNumber] || l>=postIndexLimit[folderNumber]){
 
                 File mainFile = listOfMainFiles[l];
                 File muskFile = listOfMaskFiles[l];
-
 
                 try
                 {
@@ -103,9 +95,9 @@ public class SkinDetector extends AccuracyCalculation {
 
         calculation(skin,nonSkin);
         accuracyCalculator(folderUnit,previousIndexLimit,postIndexLimit,folderNumber);
-       double r= getAccuracy();
+        double r= getAccuracy();
 
-       return r;
+        return r;
 
     }
 
