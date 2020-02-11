@@ -90,8 +90,9 @@ public class AccuracyCalculation
     public void accuracyCalculator(File[] folderUnit, int[] previousIndexLimit, int[] postIndexLimit, int folderNumber) throws IOException
     {
         BufferedImage testImg=null,testImg2=null;
+        System.out.println(previousIndexLimit[folderNumber]);
 
-        for (int fileNumber=previousIndexLimit[folderNumber];fileNumber<=postIndexLimit[folderNumber];fileNumber++)
+        for (int fileNumber=0;fileNumber<111;fileNumber++)
         {
 
             File input = new File(String.valueOf(folderUnit[fileNumber]));

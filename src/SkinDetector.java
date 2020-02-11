@@ -44,7 +44,7 @@ public class SkinDetector extends AccuracyCalculation {
 
     public double trainer(File[] folderUnit, int[] previousIndexLimit, int[] postIndexLimit, int folderNumber) throws IOException {
 
-        System.out.println(previousIndexLimit[folderNumber]);
+      //  System.out.println(previousIndexLimit[folderNumber]);
         for(int l=0; l<555;l++)
         {
             if(l<previousIndexLimit[folderNumber] || l>=postIndexLimit[folderNumber]){
