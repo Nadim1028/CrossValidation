@@ -12,7 +12,6 @@ public class AccuracyCalculation
     double[][][] probOfSkin = new double[256][256][256];
     int[] maskCount= new int[555], outputCount = new int[555];
 
-
     public  void calculation( double[][][] skin, double[][][] nonSkin) throws IOException {
 
         for (int i=0;i<256;i++)
@@ -129,7 +128,6 @@ public class AccuracyCalculation
         System.out.format("Accuracy = %.3f\n",accuracy);
 
         return accuracy;
-
     }
 
 }

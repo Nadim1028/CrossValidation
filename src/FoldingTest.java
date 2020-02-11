@@ -8,13 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class FoldingTest {
-
-    static File maskFolder = new File("data\\mask");
-    static  File mainFolder = new File("data\\normal");
-
-    static File[] listOfMaskFiles = maskFolder.listFiles();
-    static File[] listOfMainFiles = mainFolder.listFiles();
+public class FoldingTest extends SkinDetector {
 
     File[] folder1 = new File[111];
     File[] folder2 = new File[111];
@@ -26,6 +20,10 @@ public class FoldingTest {
     static int p=555,m=1,limit=0,previousLimit=0,preIndex=0,postIndex=0;
     int  c=555/5;
 
+    public FoldingTest(File[] ln, File[] lm) throws IOException {
+        super(ln, lm);
+    }
+
     public void arrInitializer(){
         for(int i=0;i<5;i++){
             previousIndexLimit[i]=0;
@@ -36,10 +34,10 @@ public class FoldingTest {
 
 
     public void fiveFolding()
-           {
+    {
                while(m<=5)
                {
-                   limit = c * m;
+                   limit = c*m;
 
                    if(m==1){
                        previousIndexLimit[m-1]=previousLimit;
@@ -87,17 +85,8 @@ public class FoldingTest {
         return folder;
     }
 
-    SkinDetector s;
-    {
-        try {
-            s = new SkinDetector(listOfMainFiles,listOfMaskFiles);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void data() throws IOException {
-        s.arrayInitializer();
+       /* s.arrayInitializer();
         double t1,t2,t3,t4,t5;
         t1=s.trainer(folder1,previousIndexLimit,postIndexLimit,0);
         t2=s.trainer(folder2,previousIndexLimit,postIndexLimit,1);
@@ -106,12 +95,19 @@ public class FoldingTest {
         t5=s.trainer(folder5,previousIndexLimit,postIndexLimit,4);
 
         double t=(t1+t2+t3+t4+t5)/5;
+        System.out.format("Final Accuracy = %.3f",t);*/
+
+       arrInitializer();
+        double t1,t2,t3,t4,t5;
+        t1=trainer(folder1,previousIndexLimit,postIndexLimit,0);
+        t2=trainer(folder2,previousIndexLimit,postIndexLimit,1);
+        t3=trainer(folder3,previousIndexLimit,postIndexLimit,2);
+        t4=trainer(folder4,previousIndexLimit,postIndexLimit,3);
+        t5=trainer(folder5,previousIndexLimit,postIndexLimit,4);
+        double t=(t1+t2+t3+t4+t5)/5;
         System.out.format("Final Accuracy = %.3f",t);
 
-
     }
-
-
 }
 
 

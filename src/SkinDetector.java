@@ -35,7 +35,6 @@ public class SkinDetector extends AccuracyCalculation {
     }
 
 
-
     public double trainer(File[] folderUnit, int[] previousIndexLimit, int[] postIndexLimit, int folderNumber) throws IOException {
 
         for(int l=0; l<555;l++)
@@ -96,10 +95,6 @@ public class SkinDetector extends AccuracyCalculation {
         calculation(skin,nonSkin);
         accuracyCalculator(folderUnit,previousIndexLimit,postIndexLimit,folderNumber);
         double r= getAccuracy();
-
         return r;
-
     }
-
-
 }
