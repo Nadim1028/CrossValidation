@@ -6,5 +6,6 @@ public class MainClass
         FoldingTest f= new FoldingTest();
         f.fiveFolding();
         f.data();
+
     }
 }
