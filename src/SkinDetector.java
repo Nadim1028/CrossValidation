@@ -102,7 +102,7 @@ public class SkinDetector extends AccuracyCalculation {
         }
 
         calculation(skin,nonSkin);
-        accuracyCalculator(folderUnit);
+        accuracyCalculator(folderUnit,previousIndexLimit,postIndexLimit,folderNumber);
        double r= getAccuracy();
 
        return r;
