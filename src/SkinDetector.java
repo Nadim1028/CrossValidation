@@ -1,10 +1,9 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class SkinDetector extends AccuracyCalculation {
     BufferedImage mainImage=null,muskImage=null;
@@ -35,7 +34,7 @@ public class SkinDetector extends AccuracyCalculation {
     }
 
 
-    public double trainer(File[] folderUnit, int[] previousIndexLimit, int[] postIndexLimit, int folderNumber) throws IOException {
+    public double trainer(ArrayList<File> folderUnit, int[] previousIndexLimit, int[] postIndexLimit, int folderNumber) throws IOException {
 
         for(int l=0; l<555;l++)
         {

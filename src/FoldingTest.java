@@ -1,24 +1,24 @@
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class FoldingTest extends SkinDetector {
 
-    File[] folder1 = new File[111];
+  /*  File[] folder1 = new File[111];
     File[] folder2 = new File[111];
     File[] folder3 = new File[111];
     File[] folder4 = new File[111];
-    File[] folder5 = new File[111];
+    File[] folder5 = new File[111];*/
+
 
     static int[] previousIndexLimit= new int[5],postIndexLimit= new int[5];
-    static int p=555,m=1,limit=0,previousLimit=0,preIndex=0,postIndex=0;
-    int  c=555/5;
+    static int p=555, counter =1,postLimit=0, preLimit =0,preIndex=0,postIndex=0;
+    int folderUnitSize =111;
+    int n=5;
+    ArrayList<File>[] folder= new ArrayList [n];
+    Scanner input=new Scanner(System.in);
 
     public FoldingTest(File[] ln, File[] lm) throws IOException {
         super(ln, lm);
@@ -29,84 +29,52 @@ public class FoldingTest extends SkinDetector {
             previousIndexLimit[i]=0;
             postIndexLimit[i]=0;
         }
+
     }
-
-
 
     public void fiveFolding()
     {
-               while(m<=5)
-               {
-                   limit = c*m;
 
-                   if(m==1){
-                       previousIndexLimit[m-1]=previousLimit;
-                       postIndexLimit[m-1]=limit;
-                       folder1=folderMaker(folder1,previousLimit,limit);
-                   }
-                   else if(m==2){
-                       previousIndexLimit[m-1]=previousLimit;
-                       postIndexLimit[m-1]=limit;
-                       folder2=folderMaker(folder2,previousLimit,limit);
-                   }
+        /*System.out.println("Enter a integer number.");
+        n=input.nextInt();*/
+        for (int i = 0; i < n; i++) {
+            folder[i] = new ArrayList<File>();
+        }
+        while(counter <=5)
+        {
+           postLimit = folderUnitSize * counter;
 
-                   else if(m==3){
-                   previousIndexLimit[m-1]=previousLimit;
-                       postIndexLimit[m-1]=limit;
-                       folder3=folderMaker(folder3,previousLimit,limit);
-                   }
-                   else if(m==4){
-                   previousIndexLimit[m-1]=previousLimit;
-                       postIndexLimit[m-1]=limit;
-                       folder4=folderMaker(folder4,previousLimit,limit);
-               }
-                   else{
-                   previousIndexLimit[m-1]=previousLimit;
-                       postIndexLimit[m-1]=limit;
-                       folder5=folderMaker(folder5,previousLimit,limit);
-                   }
-
-                   previousLimit=limit;
-                   m++;
-               }
-
-
+           for(int k=preLimit;k<postLimit;k++)
+           {
+               folder[counter-1].add(listOfMainFiles[k]);
            }
 
+           previousIndexLimit[counter-1]=preLimit;
+           postIndexLimit[counter -1]=postLimit;
 
-
-    private static File[] folderMaker(File[] folder, int previousLimit, int limit)
-    {
-        int i=0;
-        for(int j=previousLimit;j<limit;j++)
-        {
-            folder[i++] = listOfMainFiles[j];
+           preLimit =postLimit;
+           counter++;
         }
-        return folder;
+
+
     }
 
+
     public void data() throws IOException {
-       /* s.arrayInitializer();
-        double t1,t2,t3,t4,t5;
-        t1=s.trainer(folder1,previousIndexLimit,postIndexLimit,0);
-        t2=s.trainer(folder2,previousIndexLimit,postIndexLimit,1);
-        t3=s.trainer(folder3,previousIndexLimit,postIndexLimit,2);
-        t4=s.trainer(folder4,previousIndexLimit,postIndexLimit,3);
-        t5=s.trainer(folder5,previousIndexLimit,postIndexLimit,4);
 
-        double t=(t1+t2+t3+t4+t5)/5;
-        System.out.format("Final Accuracy = %.3f",t);*/
+        arrInitializer();
+        double[] result= new double[n];
+        double finalAccuracy=0;
 
-       arrInitializer();
-        double t1,t2,t3,t4,t5;
-        t1=trainer(folder1,previousIndexLimit,postIndexLimit,0);
-        t2=trainer(folder2,previousIndexLimit,postIndexLimit,1);
-        t3=trainer(folder3,previousIndexLimit,postIndexLimit,2);
-        t4=trainer(folder4,previousIndexLimit,postIndexLimit,3);
-        t5=trainer(folder5,previousIndexLimit,postIndexLimit,4);
-        double t=(t1+t2+t3+t4+t5)/5;
-        System.out.format("Final Accuracy = %.3f",t);
+        for(int i=0;i<n;i++){
+            result[i]=trainer(folder[i],previousIndexLimit,postIndexLimit,i);
+        }
 
+        for(int i=0;i<n;i++){
+            finalAccuracy +=result[i];
+        }
+
+        System.out.format("Final Accuracy = %.3f",finalAccuracy/5);
     }
 }
 

@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class AccuracyCalculation
 {
@@ -63,14 +64,14 @@ public class AccuracyCalculation
 
     }
 
-    public void accuracyCalculator(File[] folderUnit, int[] previousIndexLimit, int[] postIndexLimit, int folderNumber) throws IOException
+    public void accuracyCalculator(ArrayList<File> folderUnit, int[] previousIndexLimit, int[] postIndexLimit, int folderNumber) throws IOException
     {
         BufferedImage testImg=null,testImg2=null;
 
         for (int fileNumber=0;fileNumber<111;fileNumber++)
         {
 
-            File input = new File(String.valueOf(folderUnit[fileNumber]));
+            File input = new File(String.valueOf(folderUnit.get(fileNumber)));
             File maskInput = new File(String.valueOf(FoldingTest.listOfMaskFiles[fileNumber+folderNumber*111]));
             try {
                 testImg= ImageIO.read(input);
