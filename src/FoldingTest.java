@@ -6,13 +6,6 @@ import java.util.Scanner;
 
 public class FoldingTest extends SkinDetector {
 
-  /*  File[] folder1 = new File[111];
-    File[] folder2 = new File[111];
-    File[] folder3 = new File[111];
-    File[] folder4 = new File[111];
-    File[] folder5 = new File[111];*/
-
-
     static int[] previousIndexLimit= new int[5],postIndexLimit= new int[5];
     static int p=555, counter =1,postLimit=0, preLimit =0,preIndex=0,postIndex=0;
     int folderUnitSize =111;
