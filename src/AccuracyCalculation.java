@@ -11,7 +11,9 @@ public class AccuracyCalculation
 {
     double ArraySumSkin=0,ArraySumNonSkin=0;
     double[][][] probOfSkin = new double[256][256][256];
-    int[] maskCount= new int[555], outputCount = new int[555];
+    //int[] truePosCount= new int[555], trueNegCount = new int[555];
+    int truePosCount= 0, trueNegCount = 0;
+    double[] perImageAccuracy = new double[111];
 
     public  void calculation( double[][][] skin, double[][][] nonSkin) throws IOException {
 
@@ -87,7 +89,7 @@ public class AccuracyCalculation
                 for (int j = 0; j < newHeight; j++) {
                     Color newColor = new Color(testImg.getRGB(i, j));
                     Color muskColor = new Color(testImg2.getRGB(i,j));
-                    //System.out.println(muskColor.getRed()+","+ muskColor.getGreen() + ","+muskColor.getBlue());
+                   // System.out.println(muskColor.getRed()+","+ muskColor.getGreen() + ","+muskColor.getBlue());
                     //System.out.println(newColor.getRed()+","+ newColor.getGreen() + ","+newColor.getBlue());
                     if (probOfSkin[newColor.getRed()][newColor.getGreen()][newColor.getBlue()] > 0.4)
                     {
@@ -102,33 +104,44 @@ public class AccuracyCalculation
 
                     if ((muskColor.getRed() < 240 && muskColor.getBlue() < 240 && muskColor.getGreen() < 240) )
                     {
-                        maskCount[fileNumber]++;
                         if((newColor.getRed() < 240 && newColor.getBlue() < 240 && newColor.getGreen() < 240)) {
-                            outputCount[fileNumber]++;
+                            truePosCount++;
                         }
                     }
 
-                }
 
+                    if ((muskColor.getRed() >= 240 && muskColor.getBlue() >= 240 && muskColor.getGreen() >= 240) )
+                    {
+                        if((newColor.getRed() >= 240 && newColor.getBlue() >= 240 && newColor.getGreen() >= 240)) {
+                            trueNegCount++;
+                        }
+                    }
+                }
             }
 
+            perImageAccuracy[fileNumber]=(double) (truePosCount+trueNegCount)/(newHeight*newWidth);
+           // System.out.println(perImageAccuracy[fileNumber]);
+            truePosCount=0;
+            trueNegCount=0;
             // ImageIO.write(testImg,"jpg",new File("data\\outputImage\\outputImg"+fileNumber+".jpg"));
 
         }
     }
 
-    public  double getAccuracy(){
-        int sumOFMask=0,sumOfOutput=0;
-        for(int i=0;i<maskCount.length;i++){
-            sumOFMask += maskCount[i];
-            sumOfOutput += outputCount[i];
+    public  double getAccuracy()
+    {
+        double folderAccuracy=0;
+        for(int i=0;i<perImageAccuracy.length;i++){
+            folderAccuracy += perImageAccuracy[i];
         }
 
-        double accuracy;
-        accuracy=(double) (sumOfOutput*100)/(sumOFMask);
-        System.out.format("Accuracy = %.3f\n",accuracy);
+        double overallFolderAccuracy;
+        overallFolderAccuracy=(folderAccuracy/111)*100;
 
-        return accuracy;
+        String string=String.format("%.3f",overallFolderAccuracy);
+        System.out.println(string+"%");
+
+        return overallFolderAccuracy;
     }
 
 }

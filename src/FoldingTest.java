@@ -6,19 +6,21 @@ import java.util.Scanner;
 
 public class FoldingTest extends SkinDetector {
 
-    static int[] previousIndexLimit= new int[5],postIndexLimit= new int[5];
-    static int p=555, counter =1,postLimit=0, preLimit =0,preIndex=0,postIndex=0;
+    int[] previousIndexLimit= new int[5],postIndexLimit= new int[5];
+    int p=555, counter =1,postLimit=0, preLimit =0,preIndex=0,postIndex=0;
     int folderUnitSize =111;
-    int n=5;
-    ArrayList<File>[] folder= new ArrayList [n];
-    Scanner input=new Scanner(System.in);
+    int n=0;
+    ArrayList<File>[] folder;
 
-    public FoldingTest(File[] ln, File[] lm) throws IOException {
+    public FoldingTest(File[] ln, File[] lm, int number) throws IOException {
         super(ln, lm);
+        n=number;
+        folder = new ArrayList [number];
     }
 
+
     public void arrInitializer(){
-        for(int i=0;i<5;i++){
+        for(int i=0;i<n;i++){
             previousIndexLimit[i]=0;
             postIndexLimit[i]=0;
         }
@@ -27,13 +29,13 @@ public class FoldingTest extends SkinDetector {
 
     public void fiveFolding()
     {
+        System.out.println(folder.length);
 
-        /*System.out.println("Enter a integer number.");
-        n=input.nextInt();*/
         for (int i = 0; i < n; i++) {
             folder[i] = new ArrayList<File>();
         }
-        while(counter <=5)
+
+        while(counter <=n)
         {
            postLimit = folderUnitSize * counter;
 
@@ -66,8 +68,10 @@ public class FoldingTest extends SkinDetector {
         for(int i=0;i<n;i++){
             finalAccuracy +=result[i];
         }
+        finalAccuracy=finalAccuracy/5;
 
-        System.out.format("Final Accuracy = %.3f",finalAccuracy/5);
+        String string=String.format("%.3f",finalAccuracy);
+        System.out.println("Final Accuracy = "+string+"%");
     }
 }
 
