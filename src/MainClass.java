@@ -13,10 +13,11 @@ public class MainClass
          Scanner input=new Scanner(System.in);
          int number;
 
-         System.out.println("Enter an integer number.");
+         System.out.println("Enter an folding number.");
          number=input.nextInt();
 
          FoldingTest f= new FoldingTest(listOfMainFiles,listOfMaskFiles,number);
+         f.imageInitializer();
          f.arrInitializer();
          f.fiveFolding();
          f.data();

@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 
@@ -11,11 +12,60 @@ public class FoldingTest extends SkinDetector {
     int folderUnitSize =111;
     int n=0;
     ArrayList<File>[] folder;
+   Image[] imageObject= new Image[555];
+
+
 
     public FoldingTest(File[] ln, File[] lm, int number) throws IOException {
         super(ln, lm);
         n=number;
         folder = new ArrayList [number];
+    }
+
+    public void imageInitializer(){
+
+        for(int i=0;i<555;i++){
+            imageObject[i]=new Image();
+        }
+
+        for(int i=0;i<555;i++){
+            imageObject[i].setData(listOfMainFiles[i],listOfMaskFiles[i]);
+        }
+/*
+        for(int i=0;i<555;i++) {
+            System.out.println(imageObject[i].getImageFile());
+            System.out.println(imageObject[i].getMaskFile());
+        }*/
+
+
+        Random rand = new Random();
+
+        for (int i = 0; i < imageObject.length; i++)
+        {
+            int randomIndexToSwap = rand.nextInt(imageObject.length);
+            Image temp = imageObject[randomIndexToSwap];
+            imageObject[randomIndexToSwap] = imageObject[i];
+            imageObject[i] = temp;
+        }
+
+
+        /*for(int i=0;i<555;i++) {
+            System.out.println(imageObject[i].getImageFile());
+            System.out.println(imageObject[i].getMaskFile());
+        }
+
+*/
+        for(int i=0;i<555;i++) {
+            listOfMainFiles[i] = imageObject[i].getImageFile();
+            listOfMaskFiles[i] = imageObject[i].getMaskFile();
+        }
+
+        for(int i=0;i<555;i++) {
+            System.out.println(listOfMainFiles[i]);
+            System.out.println(listOfMaskFiles[i]);
+        }
+
+
     }
 
 
@@ -33,6 +83,8 @@ public class FoldingTest extends SkinDetector {
 
         for (int i = 0; i < n; i++) {
             folder[i] = new ArrayList<File>();
+
+
         }
 
         while(counter <=n)
@@ -42,6 +94,7 @@ public class FoldingTest extends SkinDetector {
            for(int k=preLimit;k<postLimit;k++)
            {
                folder[counter-1].add(listOfMainFiles[k]);
+               //imageObject[k].add(listOfMainFiles[k],listOfMaskFiles[k]);
            }
 
            previousIndexLimit[counter-1]=preLimit;

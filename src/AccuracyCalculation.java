@@ -102,6 +102,8 @@ public class AccuracyCalculation
 
                     }
 
+                    newColor = new Color(testImg.getRGB(i, j));
+
                     if ((muskColor.getRed() < 240 && muskColor.getBlue() < 240 && muskColor.getGreen() < 240) )
                     {
                         if((newColor.getRed() < 240 && newColor.getBlue() < 240 && newColor.getGreen() < 240)) {
